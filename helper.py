@@ -6,9 +6,9 @@ import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
-my_email = "courieriiit@outlook.com"
-# Should I do this?
-password_key = "LJ_23sux"
+# It is required to set environment variables!
+my_email = os.environ["MY_EMAIL"]
+password_key = os.environ["MY_PASSWORD"]
 
 gmail_server = "smtp-mail.outlook.com"
 gmail_port = 587
@@ -24,6 +24,9 @@ def login_required(f):
 
 
 def otp_mail(id, otp, toMail):
+    if not my_email or not password_key:
+        print("Environment variables not set!")
+        return
     my_server = smtplib.SMTP(gmail_server, gmail_port)
     my_server.ehlo()
     my_server.starttls()
@@ -41,6 +44,9 @@ def otp_mail(id, otp, toMail):
     my_server.quit()
 
 def password_mail(id, password, toMail):
+    if not my_email or not password_key:
+        print("Environment variables not set!")
+        return
     my_server = smtplib.SMTP(gmail_server, gmail_port)
     my_server.ehlo()
     my_server.starttls()
@@ -58,6 +64,9 @@ def password_mail(id, password, toMail):
     my_server.quit()
 
 def resend_mail(id, otp, toMail):
+    if not my_email or not password_key:
+        print("Environment variables not set!")
+        return
     my_server = smtplib.SMTP(gmail_server, gmail_port)
     my_server.ehlo()
     my_server.starttls()
@@ -73,3 +82,7 @@ def resend_mail(id, otp, toMail):
     my_server.sendmail(my_email, toMail, message.as_string())
 
     my_server.quit()
+
+otp_mail(10, 2023, "kanodiaaks@gmail.com")
+password_mail(10, 2023, "kanodiaaks@gmail.com")
+resend_mail(10, 2023, "kanodiaaks@gmail.com")
