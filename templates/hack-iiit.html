@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <link rel = "stylesheet" href = "styling-hack.css">
+    <title >
+        IIIT Courier Portal
+    </title>
+
+    <script>
+        var toggle=0;
+        function dropdown(d_d,d_t,d_o,d_p,arrival_date, arrival_time, otp,pid){
+        if(toggle){
+            console.log("inside toggle=1");
+            document.getElementById(d_d).innerHTML= "Date Arrived: "+arrival_date;
+            document.getElementById(d_t).innerHTML = "Time of arrival: "+arrival_time;
+            document.getElementById(d_o).innerHTML="OTP: "+otp;
+            document.getElementById(d_p).innerHTML="Product ID: "+pid;
+         // document.write("Date Arrived: 20/1/24");
+         // document.write("OTP: 23957502");
+       }else{
+           console.log("inside toggle=0");
+           document.getElementById(d_d).textContent="";
+           document.getElementById(d_t).textContent=""
+           document.getElementById(d_o).textContent="";
+           document.getElementById(d_p).innerHTML="";
+        }
+    }
+    </script>
+    </head>
+    <body>
+        <div id = "title-page" align = "left">
+            &nbsp;IIIT Courier Portal
+        </div>
+        <p style="font-size: 1.5em; background-color: black; width:65%; color: white; border-radius: 20px;"><b>&ensp;User:</b> Ramlal Mohanlal Pawanlal (ramlal.pawanlal@students.iiit.ac.in)</p>
+    <div>
+        <p id = "header" align ="center" style = "font-size:40px"f><b>Pending Packages:</b></p>
+        <p id = "">
+            <div>
+                <button onclick = "toggle^=1;dropdown('ad','at','ao','ap','20/1/24','13:48','2395702','7341')" >></button><span style = "font-size:40px">Amazon Package</span>
+                <div id="ad" style = "font-size:23px"></div>
+                <div id = "at" style = "font-size:23px"></div>
+                <div id ="ao" style = "font-size:23px"></div>
+                <div id="ap" style = "font-size:23px"></div>
+              </div> 
+              <br>
+              <div>
+                <button onclick = "toggle^=1; dropdown('md','mt','mo','mp','21/1/24','10:23','85739475','2345')" >></button><span style = "font-size:40px">Myntra Package</span>
+                <div id = "md" style = "font-size:23px"></div>
+                <div id = "mt" style = "font-size:23px"></div>
+                <div id= "mo" style = "font-size:23px"></div>
+                <div id="mp" style = "font-size:23px"></div>
+              </div> 
+              <br>
+              <div>
+                <button onclick ="toggle^=1; dropdown('fd','ft','fo','fp','22/1/24','19:12','948755687','1234')">></button><span style = "font-size:40px">Flipkart Package</span>
+                <div id = "fd" style = "font-size:23px"></div>
+                <div id = "ft" style = "font-size:23px"></div>
+                <div id= "fo" style = "font-size:23px"></div>
+                <div id="fp" style = "font-size:23px"></div>
+              </div>
+              <br>
+            </p>
+            <br>
+            <br>
+            <button type= "button" onclick = "" style ="font-size:20px">View History</button>
+    </div>
+    </body>
+</html>
