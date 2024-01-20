@@ -2,7 +2,7 @@ import os
 from cs50 import SQL
 from flask import Flask, flash, redirect, render_template, request, session, jsonify
 from flask_session import Session
-from helper import login_required
+from helper import login_required, otp_mail, password_mail, resend_mail
 from werkzeug.security import check_password_hash, generate_password_hash
 import secrets
 
@@ -98,7 +98,7 @@ def addStudent():
         hash = generate_password_hash(password, method="pbkdf2:sha256", salt_length=8)
 
         db.execute("INSERT INTO students (roll_number, name, email, hash) VALUES (?, ?, ?, ?)", rollNum, name, email, hash)
-        # send email to student about password.
+        password_mail(rollNum, password, email)
 
         flash("Student created successfully!")
         return redirect("/admin/home")
@@ -112,7 +112,16 @@ def addSecurity():
     if(request.method == "POST"):
         name = request.form.get("name")
         id = request.form.get("id")
-        password = request.form.get("password")
+        email = request.form.get("email")
+        passs = secrets.randbelow(100000)
+        password = ""
+        if(passs < 1000):
+            password += "0"
+        elif(passs < 100):
+            password += "00"
+        elif(passs < 10):
+            password += "000"
+        password += passs
 
         if not name:
             flash("No name!")
@@ -120,13 +129,14 @@ def addSecurity():
         elif not id:
             flash("No ID!")
             return render_template("addsecurity.html")
-        elif not password:
-            flash("No password!")
+        elif not email:
+            flash("No email!")
             return render_template("addsecurity.html")
         
         hash = generate_password_hash(password, method="pbkdf2:sha256", salt_length=8)
 
-        db.execute("INSERT INTO security (id, name, hash) VALUES (?, ?, ?)", id, name, hash)
+        db.execute("INSERT INTO security (id, name, email, hash) VALUES (?, ?, ?, ?)", id, name, email, hash)
+        password_mail(id, password, email)
 
         flash("Security created successfully!")
         return redirect("/admin/home")
@@ -200,6 +210,8 @@ def student():
     rows = db.execute("SELECT * FROM couriers JOIN security ON couriers.security_id=security.id WHERE student_id = ? AND collected = ? ORDER BY arrival DESC", session["user_id"], 0)
 
     return render_template("student.html", packages=rows) # Give rows of couriers and anything else too?
+# Student has to be able to resend OTP... among other things...?
+
 
 @app.route("/security")
 @login_required
@@ -240,7 +252,8 @@ def add():
             otp += "000"
         otp += otpp
         hash = generate_password_hash(otp, method="pbkdf2:sha256", salt_length=8)
-        # send email!
+        toMail = students[0]["mail"]
+        otp_mail(id, otp, toMail)
 
         db.execute("INSERT INTO couriers (id, student_id, security_id, source, collected, hash, arrival, collection) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", id, rollNum, session["user_id"], src, 0, hash, arrival, "-")
         flash(f"Courier added successfully! Package ID is {id}")
