@@ -82,7 +82,3 @@ def resend_mail(id, otp, toMail):
     my_server.sendmail(my_email, toMail, message.as_string())
 
     my_server.quit()
-
-otp_mail(10, 2023, "kanodiaaks@gmail.com")
-password_mail(10, 2023, "kanodiaaks@gmail.com")
-resend_mail(10, 2023, "kanodiaaks@gmail.com")
