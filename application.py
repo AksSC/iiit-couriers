@@ -210,7 +210,27 @@ def student():
     rows = db.execute("SELECT * FROM couriers JOIN security ON couriers.security_id=security.id WHERE student_id = ? AND collected = ? ORDER BY arrival DESC", session["user_id"], 0)
 
     return render_template("student.html", packages=rows) # Give rows of couriers and anything else too?
-# Student has to be able to resend OTP... among other things...?
+
+@app.route("/resend/<id>")
+@login_required
+def resend(id):
+    rows = db.execute("SELECT student_id FROM couriers WHERE id = ?", id)
+    if len(rows) == 0:
+        return redirect("/student")
+    studentId = rows[0]["student_id"]
+    otpp = secrets.randbelow(100000)
+    otp = ""
+    if(otpp < 1000):
+        otp += "0"
+    elif(otpp < 100):
+        otp += "00"
+    elif(otpp < 10):
+        otp += "000"
+    otp += otpp
+    hash = generate_password_hash(otp, method="pbkdf2:sha256", salt_length=8)
+    db.execute("UPDATE couriers SET hash = ? WHERE id = ?", hash, id)
+    student = db.execute("SELECT email FROM students WHERE id = ?", studentId)[0]
+    resend_mail(id, otp, student["email"])
 
 
 @app.route("/security")
