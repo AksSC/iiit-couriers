@@ -25,8 +25,9 @@ The program requires two environment variables to be set, namely MY_EMAIL and MY
 - ``` ./templates ``` - Stores all the HTML pages required for the site
 - ```./app.py ``` - Contains most of the backend, including the functions to get and post to the database, control routes, navigate through the website, etc.
 - ``` ./helper.py ``` - Contains some helper functions
-- ``` iiit-courier.db ``` - SQLite3 database which stores info in 3 tables: couriers, students and security
-  - packages stores courier ID, security ID, student roll number, arrival and collection time, collection status and source.
+- ``` iiit-courier.db ``` - SQLite3 database which stores info in 4 tables: admins, couriers, students and security
+  - admins stores admin IDs and passwords
+  - packages stores courier ID, security ID, student roll number, arrival and collection time, collection status and source
   - students stores names, roll numbers and email IDs
   - security stores security IDs, names and email IDs
 
