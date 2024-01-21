@@ -14,7 +14,7 @@
 
         .container {
             max-width: 800px;
-            margin: 20px auto;
+            margin: 5% auto;
             padding: 3% 5%;
 
             border: 1px solid #beb9c0;
@@ -30,13 +30,14 @@
 
         h2 {
             color: #333;
-            font-size: 1.8em;
+            font-size: 45px;
             margin-bottom: 20px;
         }
 
         .welcome {
             color: #666;
             font-size: 18px;
+            font-style: italic;
             margin-bottom: 20px;
         }
 
@@ -66,15 +67,31 @@
             color: #333;
             font-size: 1.5em;
             margin-bottom: 20px;
+            padding-left: 5%;
+            text-align: start;
+        }
+
+        .card-wrapper {
+            display: flex;
+            justify-content: space-evenly;
+            flex-wrap: wrap;
+            flex-direction: row;
+            margin-bottom: 3%;
         }
 
         .card {
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             background-color: #fafafa;
+
             border: 1px solid #ddd;
             border-radius: 5px;
-            margin-bottom: 20px;
-            padding-bottom: 3%;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            
+            margin-bottom: 3%;
+            padding-bottom: 5%;
+            padding-left: 5%;
+            padding-right: 5%;
+
+            max-width: 45%;
         }
 
         .card h3 {
@@ -86,10 +103,10 @@
         .card p {
             color: #666;
             font-size: 16px;
-            margin-bottom: 8px;
         }
 
         .resend-link {
+            margin-top: 4%;
             display: inline-block;
             padding: 10px 15px;
             background-color: #3498db;
@@ -105,8 +122,7 @@
 
         .logout {
             text-align: right;
-            margin-top: 20px;
-            margin-right: 10px;
+            vertical-align: top;
         }
 
         .logout a {
@@ -132,26 +148,32 @@
         </div>
 
         <h2>Student Dashboard</h2>
-        <div class="welcome">Welcome John Doe</div>
+        <div class="welcome">Welcome, {{ name }} </div>
 
         <div class="dashboard-links">
             <a href="/student/history">View Package History</a>
         </div>
 
-        <h2 class="unclaimed-packages">Unclaimed Packages</h2>
+        <h2 class="unclaimed-packages">Your Unclaimed Packages:</h2>
 
-        {% for package in packages %}
-            <div class="card">
-                <h3>Package ID: {{ package.id }}</h3>
-                <p>Security Guard: {{ package.name }}</p>
-                <p>Source: {{ package.source }}</p>
-                <p>Arrival Time: {{ package.arrivaltime }}</p>
-                <p>Arrival Date: {{ package.arrivaldate }}</p>
-            </div>
-        {% endfor %}
+        <div class = "card-wrapper">
 
-        <!-- Add more cards as needed -->
+            {% for package in packages %}
+                <div class="card">
+                    <h3>Package ID: {{ package.id }}</h3>
+                    <p>
+                        Source: {{ package.source }} <br>
+                        Security Guard: {{ package.name }} <br> <br>
+                        Arrival Time: {{ package.arrivaltime }} <br>
+                        Arrival Date: {{ package.arrivaldate }} <br>
+                    </p>
 
+                    <a href="/resend/{{ package.id }}" class="resend-link">Resend OTP</a>
+                </div>
+            {% endfor %}
+
+            <!-- Add more cards as needed -->
+        </div>
     </div>
 
 </body>
