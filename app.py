@@ -2,7 +2,7 @@ import os
 from cs50 import SQL
 from flask import Flask, flash, redirect, render_template, request, session, jsonify
 from flask_session import Session
-from helper import login_required, otp_mail, password_mail, resend_mail, reformat_date
+from helper import *
 from werkzeug.security import check_password_hash, generate_password_hash
 import secrets
 
@@ -212,7 +212,7 @@ def student():
     
     for row in rows:
         if(row["arrival"] != None):
-            row["arrivaltime"] = row["arrival"].split(" ")[1]
+            row["arrivaltime"] = reformat_time(row["arrival"].split(" ")[1])
             row["arrivaldate"] = reformat_date(row["arrival"].split(" ")[0])
     
     
@@ -303,17 +303,19 @@ def collect():
         if not otp:
             flash("No OTP!")
             return render_template("releasepackage.html")
-        rows = db.execute("SELECT hash, collected FROM couriers WHERE id = ?", packageId)
+        rows = db.execute("SELECT hash, collected, student_id FROM couriers WHERE id = ?", packageId)
 
         if len(rows) != 1 or not check_password_hash(rows[0]["hash"], otp) or rows[0]["collected"] == 1:
             flash("Invalid ID or OTP!")
             return render_template("releasepackage.html")
+        
+        toMail = db.execute("SELECT email FROM students WHERE roll_number = ?", rows[0]["student_id"])[0]["email"]
 
         db.execute("UPDATE couriers SET hash = ? WHERE id = ?", "", packageId)
         db.execute("UPDATE couriers SET collected = ? WHERE id = ?", 1, packageId)
         collection = db.execute("SELECT datetime('now', 'localtime') as x")[0]["x"]
         db.execute("UPDATE couriers SET collection = ? WHERE id = ?", collection, packageId)
-        print("Package collected successfully!")
+        recd_mail(packageId, toMail)
         flash("Package collected successfully!")
         return redirect("/security")
     else:
@@ -327,10 +329,10 @@ def history():
     
     for row in rows:
         if(row["arrival"] != None):
-            row["arrivaltime"] = row["arrival"].split(" ")[1]
+            row["arrivaltime"] = reformat_time(row["arrival"].split(" ")[1])
             row["arrivaldate"] = reformat_date(row["arrival"].split(" ")[0])
         if(row["collection"] != None):
-            row["collectiontime"] = row["collection"].split(" ")[1]
+            row["collectiontime"] = reformat_time(row["collection"].split(" ")[1])
             row["collectiondate"] = reformat_date(row["collection"].split(" ")[0])
 
     return render_template("history.html", name=name, packages=rows)
