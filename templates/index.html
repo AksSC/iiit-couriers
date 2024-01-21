@@ -58,9 +58,35 @@
         .login-links a:hover {
             background-color: #2980b9;
         }
+        .alert{
+            position: relative;
+            border-radius: 0.25rem;
+            background: transparent;
+            border: none;
+            margin: 0;
+            padding: 1rem;
+        }
+
+        .alert-danger{
+            color: #721c24;
+            background-color: #f0969e;
+            border-color: #f5c6cb;
+            font-weight: bold;
+        }
+
+        .text-center{
+            text-align: center!important;
+        }
     </style>
 </head>
 <body>
+    {% if get_flashed_messages() %}
+        <header>
+            <div class="alert alert-danger text-center" role="alert">
+                {{ get_flashed_messages() | join(" ") }}
+            </div>
+        </header>
+    {% endif %}
 
     <div class="container">
         <h1>Welcome to the IIITH Courier Portal</h1>
