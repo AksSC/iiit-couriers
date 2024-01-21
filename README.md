@@ -16,6 +16,8 @@ Navigate to the repository in the terminal and run using:
 
 ``` flask run ```
 
+Admin credentials are username: aks, password: aks123
+
 ## Configuration
 
 The program requires two environment variables to be set, namely MY_EMAIL and MY_PASSWORD which are valid credentials to an email account (preferably outlook) through which to send otp and password emails to the users.
