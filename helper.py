@@ -74,7 +74,30 @@ def resend_mail(id, otp, toMail):
 
     my_server.quit()
 
+def recd_mail(id, toMail):
+    my_server = smtplib.SMTP(gmail_server, gmail_port)
+    my_server.ehlo()
+    my_server.starttls()
+    my_server.login(my_email, password_key)
+
+    email_text = f"""Hello, your package number {id} has been collected!"""
+    message = MIMEMultipart()
+    message["From"] = my_email
+    message["To"] = toMail
+    message["Subject"] = "Courier Collected!"
+    message.attach(MIMEText(email_text, "plain"))
+
+    my_server.sendmail(my_email, toMail, message.as_string())
+
+    my_server.quit()
+
 def reformat_date(date):
         
-        date_items = date.split("-");
-        return date_items[1] + "/" + date_items[2] + "/" + date_items[0]
+    date_items = date.split("-")
+    return date_items[2] + "/" + date_items[1] + "/" + date_items[0]
+
+def reformat_time(time):
+     
+    time_items = time.split(":")
+    return time_items[0] + ":" + time_items[1]
+
