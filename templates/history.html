@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student History</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #333;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+        }
+
+        .dashboard-link,
+        .logout-link {
+            display: inline-block;
+            padding: 15px 25px;
+            background-color: #3498db;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 18px;
+            margin-right: 20px;
+            margin-bottom: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        .dashboard-link:hover,
+        .logout-link:hover {
+            background-color: #2980b9;
+        }
+
+        .card {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            padding: 15px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .card h3 {
+            color: #333;
+            font-size: 1.4em;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+
+        .logout {
+            text-align: right;
+            margin-top: 20px;
+        }
+
+        .logout a {
+            display: inline-block;
+            padding: 15px 25px;
+            background-color: #e74c3c;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .logout a:hover {
+            background-color: #c0392b;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="logout">
+            <a href="logout.html" class="logout-link">Logout</a>
+        </div>
+
+        <h2>Student History</h2>
+
+        <div class="card">
+            <h3>Package ID: 001</h3>
+            <p>Security Guard: John Doe</p>
+            <p>Source: Amazon</p>
+            <p>Arrival Time: 10:30 AM</p>
+            <p>Arrival Date: January 25, 2024</p>
+            <p>Collection Time: 4:15 PM</p>
+            <p>Collection Date: January 26, 2024</p>
+        </div>
+
+        <div class="card">
+            <h3>Package ID: 002</h3>
+            <p>Security Guard: Jane Smith</p>
+            <p>Source: eBay</p>
+            <p>Arrival Time: 2:45 PM</p>
+            <p>Arrival Date: January 27, 2024</p>
+            <p>Collection Time: 9:30 AM</p>
+            <p>Collection Date: January 28, 2024</p>
+        </div>
+
+        <!-- Add more cards as needed -->
+
+        <a href="student-dashboard.html" class="dashboard-link">Go to Student Dashboard</a>
+    </div>
+
+</body>
+</html>

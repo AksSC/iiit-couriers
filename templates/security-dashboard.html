@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Dashboard</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #333;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+        }
+
+        .welcome {
+            color: #666;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .dashboard-links {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .dashboard-links a {
+            display: inline-block;
+            padding: 15px 25px;
+            background-color: #3498db;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 18px;
+            margin-right: 20px;
+            margin-bottom: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        .dashboard-links a:hover {
+            background-color: #2980b9;
+        }
+
+        .logout {
+            text-align: right;
+            margin-top: 20px;
+        }
+
+        .logout a {
+            display: inline-block;
+            padding: 15px 25px;
+            background-color: #e74c3c;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .logout a:hover {
+            background-color: #c0392b;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="logout">
+            <a href="logout.html">Logout</a>
+        </div>
+
+        <h2>Security Dashboard</h2>
+        <div class="welcome">Welcome John Doe</div>
+
+        <div class="dashboard-links">
+            <a href="add-package.html">Add New Package</a>
+            <a href="release-package.html">Release Old Package</a>
+        </div>
+    </div>
+
+</body>
+</html>
