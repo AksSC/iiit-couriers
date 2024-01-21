@@ -14,18 +14,24 @@
 
         .container {
             max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #fff;
+            margin: 5% auto;
+            padding: 3% 5%;
+
+            border: 1px solid #beb9c0;
+            border-radius: 10px  ;
+            background-color: #f7f7f7;
+
+            background-color: #f7f7f7;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            
             border-radius: 5px;
             text-align: center;
         }
 
         h2 {
             color: #333;
-            font-size: 1.8em;
-            margin-bottom: 20px;
+            font-size: 45px;
+            margin-bottom: 5%;
         }
 
         .dashboard-link,
@@ -37,9 +43,12 @@
             text-decoration: none;
             border-radius: 5px;
             font-size: 18px;
-            margin-right: 20px;
-            margin-bottom: 20px;
             transition: background-color 0.3s ease;
+        }
+
+        .dashboard-link {
+            margin-top: 5%;
+            margin-bottom: 3%;
         }
 
         .dashboard-link:hover,
@@ -47,13 +56,28 @@
             background-color: #2980b9;
         }
 
+        .card-wrapper {
+            display: flex;
+            justify-content: space-evenly;
+            flex-wrap: wrap;
+            flex-direction: row;
+
+            margin-top: 7%;
+            margin-bottom: 3%;
+        }
+
         .card {
-            background-color: #f9f9f9;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            background-color: #fafafa;
+
             border: 1px solid #ddd;
             border-radius: 5px;
-            margin-bottom: 20px;
-            padding: 15px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            
+            padding-bottom: 3%;
+            padding-left: 5%;
+            padding-right: 5%;
+
+            max-width: 45%;
         }
 
         .card h3 {
@@ -70,7 +94,7 @@
 
         .logout {
             text-align: right;
-            margin-top: 20px;
+            vertical-align: top;
         }
 
         .logout a {
@@ -93,26 +117,31 @@
 
     <div class="container">
         <div class="logout">
-            <a href="logout.html" class="logout-link">Logout</a>
+            <a href="/logout" class="logout-link">Logout</a>
         </div>
 
         <h2>Student History</h2>
 
-        {% for package in packages %}
-            <div class="card">
-                <h3>Package ID: {{ package.id }}</h3>
-                <p>Security Guard: {{ package.name }}</p>
-                <p>Source: {{ package.source }}</p>
-                <p>Arrival Time: {{ package.arrivaltime }}</p>
-                <p>Arrival Date: {{ package.arrivaldate }}</p>
-                <p>Collection Time: {{ package.collectiontime }}</p>
-                <p>Collection Date: {{ package.collectiondate }}</p>
-            </div>
-        {% endfor %}
+        <div class = "card-wrapper">
+            {% for package in packages %}
+                <div class="card">
+                    <h3>Package ID: {{ package.id }}</h3>
+                    <p>
+                        Source: {{ package.source }} <br>
+                        Security Guard: {{ package.name }} <br>
+                        <br>
+                        Arrival Time: {{ package.arrivaltime }} <br>
+                        Arrival Date: {{ package.arrivaldate }} <br>
+                        <br>
+                        Collection Time: {{ package.collectiontime }} <br>
+                        Collection Date: {{ package.collectiondate }}</p>
+                </div>
+            {% endfor %}
+        </div>
 
         <!-- Add more cards as needed -->
 
-        <a href="student-dashboard.html" class="dashboard-link">Go to Student Dashboard</a>
+        <a href="/student" class="dashboard-link">Go to Student Dashboard</a>
     </div>
 
 </body>

@@ -13,19 +13,21 @@
         }
 
         .container {
-            max-width: 600px;
-            margin: 100px auto;
-            padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border: 1px solid #beb9c0;
+            border-radius: 10px  ;
+            background-color: #f7f7f7;
+
+            max-width: 500px;
+            margin: 5% auto;
             text-align: center;
+            padding: 3% 5%;
         }
 
         h2 {
             color: #333;
-            font-size: 2em;
-            margin-bottom: 20px;
+            font-size: 40px;
+            padding-bottom: 2%;
         }
 
         p {
@@ -48,7 +50,36 @@
         }
 
         .links {
-            text-align: center;
+            margin-top: 8%;
+            display: flex;
+            justify-content: space-between;
+            padding: 2% 5%;
+        }
+
+        .back-link {
+            display: inline-block;
+            padding: 15px 25px;
+            background-color: #3498db;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 18px;
+            transition: background-color 0.3s ease;
+        }
+
+        .logout-link {
+            display: inline-block;
+            padding: 15px 25px;
+            background-color: #e74c3c;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-link:hover {
+            background-color: #2980b9;
         }
     </style>
 </head>
@@ -57,11 +88,12 @@
     <div class="container">
         <h2>OTP Resent Successfully</h2>
 
-        <p>Your OTP has been resent successfully. Please check your spam inbox if you don't find it in your primary inbox.</p>
+        <p>Your OTP has been resent successfully. </p>
+        <p>Protip: Check your spam inbox if you don't find it in your primary inbox.</p>
 
         <div class="links">
+            <a href="/student" class="back-link">Go to Student Dashboard</a>
             <a href="/logout" class="logout-link">Logout</a>
-            <a href="/student" class="dashboard-link">Go to Student Dashboard</a>
         </div>
     </div>
 
