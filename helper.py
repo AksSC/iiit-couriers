@@ -73,3 +73,8 @@ def resend_mail(id, otp, toMail):
     my_server.sendmail(my_email, toMail, message.as_string())
 
     my_server.quit()
+
+def reformat_date(date):
+        
+        date_items = date.split("-");
+        return date_items[1] + "/" + date_items[2] + "/" + date_items[0]
