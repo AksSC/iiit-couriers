@@ -25,7 +25,6 @@ db = SQL("sqlite:///iiit-courier.db")
 @app.route("/")
 def index():
     if session.get("user_id") is None:
-        print("No user logged in")
         return render_template("index.html")
     else:
         students = db.execute("SELECT * FROM students WHERE roll_number = ?", session["user_id"])
