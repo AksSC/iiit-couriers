@@ -243,7 +243,8 @@ def resend(id):
 @app.route("/security")
 @login_required
 def security():
-    return render_template("security-dashboard.html")
+    name = db.execute("SELECT name FROM security WHERE id = ?", session["user_id"])[0]["name"]
+    return render_template("security-dashboard.html", name=name)
 
 
 @app.route("/security/add", methods=["GET", "POST"])
