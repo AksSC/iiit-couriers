@@ -13,9 +13,9 @@
         }
 
         .container {
-            max-width: 400px;
+            max-width: 500px;
+            padding: 50px;
             margin: 50px auto;
-            padding: 20px;
             background-color: #fff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 5px;
@@ -51,37 +51,6 @@
             margin-left: 10px;
         }
 
-        .add-button {
-            display: inline-block;
-            padding: 15px 25px;
-            background-color: #3498db;
-            color: #fff;
-            text-decoration: none;
-            border-radius: 5px;
-            font-size: 18px;
-            transition: background-color 0.3s ease;
-        }
-
-        .add-button:hover {
-            background-color: #2980b9;
-        }
-
-        .logout-link {
-            display: inline-block;
-            padding: 15px 25px;
-            background-color: #e74c3c;
-            color: #fff;
-            text-decoration: none;
-            border-radius: 5px;
-            font-size: 18px;
-            margin-left: 20px;
-            transition: background-color 0.3s ease;
-        }
-
-        .logout-link:hover {
-            background-color: #c0392b;
-        }
-
         .back-link {
             display: inline-block;
             padding: 15px 25px;
@@ -90,32 +59,56 @@
             text-decoration: none;
             border-radius: 5px;
             font-size: 18px;
-            margin-left: 20px;
             transition: background-color 0.3s ease;
         }
 
         .back-link:hover {
             background-color: #7f8c8d;
         }
+
+        .logout {
+            text-align: right;
+        }
+
+        .logout a {
+            display: inline-block;
+            padding: 15px 25px;
+            background-color: #e74c3c;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .logout a:hover {
+            background-color: #c0392b;
+        }
+
+        .foot{
+            text-align: center;
+        }
     </style>
 </head>
 <body>
-
     <div class="container">
+        <div class="logout">
+            <a href="/logout">Logout</a>
+        </div>
+
         <h2>Add New Package</h2>
 
-        <form class="add-package-form">
-            <label for="studentRoll">Student Roll Number:</label>
-            <input type="text" id="studentRoll" name="studentRoll" required>
+        <form class="add-package-form" action="/security/add" method="post">
+            <label for="rollNum">Student Roll Number:</label>
+            <input type="text" id="rollNum" name="rollNum" required>
 
-            <label for="packageSource">Package Source:</label>
-            <input type="text" id="packageSource" name="packageSource" required>
+            <label for="src">Package Source:</label>
+            <input type="text" id="src" name="src" required>
 
-            <a href="#" class="add-button">Add Package</a>
+            <input type="submit" id="add" value="Add">
         </form>
 
-        <a href="#" class="logout-link">Logout</a>
-        <a href="security-dashboard.html" class="back-link">Back to Security Dashboard</a>
+        <div class="foot"><a href="/security" class="back-link">Back to Security Dashboard</a></div>
     </div>
 
 </body>

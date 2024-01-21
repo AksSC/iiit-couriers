@@ -25,21 +25,22 @@ db = SQL("sqlite:///iiit-courier.db")
 @app.route("/")
 def index():
     if session.get("user_id") is None:
-        redirect("/login")
+        print("No user logged in")
+        return render_template("index.html")
     else:
         students = db.execute("SELECT * FROM students WHERE roll_number = ?", session["user_id"])
         if(len(students) != 0):
-            redirect("/student")
+            return redirect("/student")
         
         security = db.execute("SELECT * FROM security WHERE id = ?", session["user_id"])
         if(len(security) != 0):
-            redirect("/security")
+            return redirect("/security")
         
-        redirect("/login")
+        return render_template("index.html")
     
 @app.route("/login")
 def login():
-    redirect("/login/student")
+    return redirect("/login/student")
 
 @app.route("/admin", methods=["GET", "POST"])
 def admin():
@@ -76,7 +77,7 @@ def addStudent():
         name = request.form.get("name")
         rollNum = request.form.get("rollNum")
         email = request.form.get("email")
-        passs = secrets.randbelow(100000)
+        passs = secrets.randbelow(10000)
         password = ""
         if(passs < 1000):
             password += "0"
@@ -84,7 +85,7 @@ def addStudent():
             password += "00"
         elif(passs < 10):
             password += "000"
-        password += passs
+        password += str(passs)
 
         if not name:
             flash("No name!")
@@ -113,7 +114,7 @@ def addSecurity():
         name = request.form.get("name")
         id = request.form.get("id")
         email = request.form.get("email")
-        passs = secrets.randbelow(100000)
+        passs = secrets.randbelow(10000)
         password = ""
         if(passs < 1000):
             password += "0"
@@ -121,7 +122,7 @@ def addSecurity():
             password += "00"
         elif(passs < 10):
             password += "000"
-        password += passs
+        password += str(passs)
 
         if not name:
             flash("No name!")
@@ -155,21 +156,21 @@ def loginStudent():
 
         if not rollNum:
             flash("No roll number!")
-            return render_template("loginstudent.html")
+            return render_template("studentlogin.html")
         elif not password:
             flash("No password!")
-            return render_template("loginstudent.html")
+            return render_template("studentlogin.html")
         
         rows = db.execute("SELECT hash FROM students WHERE roll_number = ?", rollNum)
 
         if len(rows) != 1 or not check_password_hash(rows[0]["hash"], password):
             flash("Invalid username or password!")
-            return render_template("loginstudent.html")
+            return render_template("studentlogin.html")
         
         session["user_id"] = rollNum
         return redirect("/")
     else:
-        render_template("loginstudent.html")
+        return render_template("studentlogin.html")
     
 @app.route("/login/security", methods=["GET", "POST"])
 def loginSecurity():
@@ -181,21 +182,21 @@ def loginSecurity():
 
         if not id:
             flash("No security ID!")
-            return render_template("loginsecurity.html")
+            return render_template("securitylogin.html")
         elif not password:
             flash("No password!")
-            return render_template("loginsecurity.html")
+            return render_template("securitylogin.html")
         
         rows = db.execute("SELECT hash FROM security WHERE id = ?", id)
 
         if len(rows) != 1 or not check_password_hash(rows[0]["hash"], password):
             flash("Invalid username or password!")
-            return render_template("loginsecurity.html")
+            return render_template("securitylogin.html")
         
         session["user_id"] = id
         return redirect("/")
     else:
-        render_template("loginsecurity.html")
+        return render_template("securitylogin.html")
     
 @app.route("/logout")
 @login_required
@@ -209,7 +210,7 @@ def logout():
 def student():
     rows = db.execute("SELECT * FROM couriers JOIN security ON couriers.security_id=security.id WHERE student_id = ? AND collected = ? ORDER BY arrival DESC", session["user_id"], 0)
 
-    return render_template("student.html", packages=rows) # Give rows of couriers and anything else too?
+    return render_template("student-dashboard.html", packages=rows) # Give rows of couriers and anything else too?
 
 @app.route("/resend/<id>")
 @login_required
@@ -218,7 +219,7 @@ def resend(id):
     if len(rows) == 0:
         return redirect("/student")
     studentId = rows[0]["student_id"]
-    otpp = secrets.randbelow(100000)
+    otpp = secrets.randbelow(10000)
     otp = ""
     if(otpp < 1000):
         otp += "0"
@@ -226,19 +227,19 @@ def resend(id):
         otp += "00"
     elif(otpp < 10):
         otp += "000"
-    otp += otpp
+    otp += str(otpp)
     hash = generate_password_hash(otp, method="pbkdf2:sha256", salt_length=8)
     db.execute("UPDATE couriers SET hash = ? WHERE id = ?", hash, id)
-    student = db.execute("SELECT email FROM students WHERE id = ?", studentId)[0]
+    student = db.execute("SELECT email FROM students WHERE roll_number = ?", studentId)[0]
     resend_mail(id, otp, student["email"])
+    return render_template("resent.html")
 
 
 @app.route("/security")
 @login_required
 def security():
-    return render_template("security.html")
+    return render_template("security-dashboard.html")
 
-numPackages = 0
 
 @app.route("/security/add", methods=["GET", "POST"])
 @login_required
@@ -246,7 +247,8 @@ def add():
     if(request.method == "POST"):
         rollNum = request.form.get("rollNum")
         src = request.form.get("src")
-        arrival = db.execute("SELECT datetime('now', 'localtime')")
+        arrival = db.execute("SELECT datetime('now', 'localtime') as x")[0]["x"]
+        numPackages = db.execute("SELECT COUNT(*) FROM couriers")[0]["COUNT(*)"]
 
         if not rollNum:
             flash("No roll number!")
@@ -260,9 +262,9 @@ def add():
             flash("Student does not exist!")
             return render_template("addpackage.html")
 
-        id = numPackages
         numPackages += 1
-        otpp = secrets.randbelow(100000)
+        id = numPackages
+        otpp = secrets.randbelow(10000)
         otp = ""
         if(otpp < 1000):
             otp += "0"
@@ -270,9 +272,9 @@ def add():
             otp += "00"
         elif(otpp < 10):
             otp += "000"
-        otp += otpp
+        otp += str(otpp)
         hash = generate_password_hash(otp, method="pbkdf2:sha256", salt_length=8)
-        toMail = students[0]["mail"]
+        toMail = students[0]["email"]
         otp_mail(id, otp, toMail)
 
         db.execute("INSERT INTO couriers (id, student_id, security_id, source, collected, hash, arrival, collection) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", id, rollNum, session["user_id"], src, 0, hash, arrival, "-")
@@ -287,27 +289,28 @@ def collect():
     if(request.method == "POST"):
         packageId = request.form.get("id")
         if not packageId:
-            flash("No ID!")
-            return render_template("collectpackage.html")
+            flash("No package ID!")
+            return render_template("releasepackage.html")
         
         otp = request.form.get("otp")
         if not otp:
             flash("No OTP!")
-            return render_template("collect.html")
-        rows = db.execute("SELECT hash FROM couriers WHERE id = ?", packageId)
+            return render_template("releasepackage.html")
+        rows = db.execute("SELECT hash, collected FROM couriers WHERE id = ?", packageId)
 
-        if len(rows) != 1 or not check_password_hash(rows[0]["hash"], otp):
+        if len(rows) != 1 or not check_password_hash(rows[0]["hash"], otp) or rows[0]["collected"] == 1:
             flash("Invalid ID or OTP!")
-            return render_template("collectpackage.html")
+            return render_template("releasepackage.html")
 
         db.execute("UPDATE couriers SET hash = ? WHERE id = ?", "", packageId)
         db.execute("UPDATE couriers SET collected = ? WHERE id = ?", 1, packageId)
-        collection = db.execute("SELECT datetime('now', 'localtime')")
+        collection = db.execute("SELECT datetime('now', 'localtime') as x")[0]["x"]
         db.execute("UPDATE couriers SET collection = ? WHERE id = ?", collection, packageId)
+        print("Package collected successfully!")
         flash("Package collected successfully!")
         return redirect("/security")
     else:
-        return render_template("collectpackage.html")
+        return render_template("releasepackage.html")
     
 @app.route("/student/history")
 @login_required

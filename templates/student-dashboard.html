@@ -47,7 +47,7 @@
             text-decoration: none;
             border-radius: 5px;
             font-size: 18px;
-            margin-right: 20px;
+            margin: auto;
             margin-bottom: 20px;
             transition: background-color 0.3s ease;
         }
@@ -100,6 +100,7 @@
         .logout {
             text-align: right;
             margin-top: 20px;
+            margin-right: 10px;
         }
 
         .logout a {
@@ -119,17 +120,16 @@
     </style>
 </head>
 <body>
-
     <div class="container">
         <div class="logout">
-            <a href="logout.html">Logout</a>
+            <a href="/logout">Logout</a>
         </div>
 
         <h2>Student Dashboard</h2>
         <div class="welcome">Welcome John Doe</div>
 
         <div class="dashboard-links">
-            <a href="view-packages.html">View Packages</a>
+            <a href="/student/history">View Package History</a>
         </div>
 
         <h2 class="unclaimed-packages">Unclaimed Packages</h2>
@@ -140,7 +140,8 @@
             <p>Source: Amazon</p>
             <p>Arrival Time: 10:30 AM</p>
             <p>Arrival Date: January 25, 2024</p>
-            <a href="resend-otp.html" class="resend-link">Resend OTP</a>
+            <!-- Add id of package in link... -->
+            <a href="/resend" class="resend-link">Resend OTP</a>
         </div>
 
         <div class="card">
@@ -149,7 +150,7 @@
             <p>Source: eBay</p>
             <p>Arrival Time: 2:45 PM</p>
             <p>Arrival Date: January 26, 2024</p>
-            <a href="resend-otp.html" class="resend-link">Resend OTP</a>
+            <a href="/resend" class="resend-link">Resend OTP</a>
         </div>
 
         <!-- Add more cards as needed -->

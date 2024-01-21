@@ -24,9 +24,6 @@ def login_required(f):
 
 
 def otp_mail(id, otp, toMail):
-    if not my_email or not password_key:
-        print("Environment variables not set!")
-        return
     my_server = smtplib.SMTP(gmail_server, gmail_port)
     my_server.ehlo()
     my_server.starttls()
@@ -44,9 +41,6 @@ def otp_mail(id, otp, toMail):
     my_server.quit()
 
 def password_mail(id, password, toMail):
-    if not my_email or not password_key:
-        print("Environment variables not set!")
-        return
     my_server = smtplib.SMTP(gmail_server, gmail_port)
     my_server.ehlo()
     my_server.starttls()
@@ -64,9 +58,6 @@ def password_mail(id, password, toMail):
     my_server.quit()
 
 def resend_mail(id, otp, toMail):
-    if not my_email or not password_key:
-        print("Environment variables not set!")
-        return
     my_server = smtplib.SMTP(gmail_server, gmail_port)
     my_server.ehlo()
     my_server.starttls()

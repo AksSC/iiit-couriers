@@ -45,6 +45,10 @@
             font-size: 16px;
         }
 
+        #id, #password {
+            width: 95%;
+        }
+
         .login-links {
             margin-top: 20px;
         }
@@ -61,9 +65,9 @@
     <div class="container">
         <h2>Security Login</h2>
 
-        <form action="security-dashboard.html" method="post">
-            <label for="userId">User ID:</label>
-            <input type="text" id="userId" name="userId" required>
+        <form action="/login/security" method="post">
+            <label for="id">User ID:</label>
+            <input type="text" id="id" name="id" required>
 
             <label for="password">Password:</label>
             <input type="password" id="password" name="password" required>
@@ -72,7 +76,7 @@
         </form>
 
         <div class="login-links">
-            <a href="student-login.html">Switch to Student Login</a>
+            <a href="/login/student">Switch to Student Login</a>
         </div>
     </div>
 

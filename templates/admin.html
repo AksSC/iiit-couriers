@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Login - Courier Portal</title>
+    <title>Admin Login - Courier Portal</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -45,7 +45,7 @@
             font-size: 16px;
         }
 
-        #id, #password {
+        #username, #password {
             width: 95%;
         }
 
@@ -63,11 +63,11 @@
 <body>
 
     <div class="container">
-        <h2>Student Login</h2>
+        <h2>Admin Login</h2>
 
-        <form action="/login/student" method="post">
-            <label for="rollNum">User ID:</label>
-            <input type="text" id="rollNum" name="rollNum" required>
+        <form action="/admin" method="post">
+            <label for="username">User ID:</label>
+            <input type="text" id="username" name="username" required>
 
             <label for="password">Password:</label>
             <input type="password" id="password" name="password" required>
@@ -76,7 +76,7 @@
         </form>
 
         <div class="login-links">
-            <a href="/login/security">Switch to Security Login</a>
+            <a href="/">Home</a>
         </div>
     </div>
 
