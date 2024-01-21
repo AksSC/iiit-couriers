@@ -13,16 +13,20 @@
         }
 
         .container {
+            border: 1px solid #beb9c0;
+            border-radius: 10px  ;
+            background-color: #f7f7f7;
+
             max-width: 400px;
-            margin: 0 auto;
+            margin: 5% auto;
             text-align: center;
-            padding: 50px 20px;
+            padding: 3% 5%;
         }
 
         h2 {
             color: #333;
             font-size: 2em;
-            margin-bottom: 20px;
+            padding-bottom: 5%;
         }
 
         form {
@@ -45,7 +49,7 @@
             font-size: 16px;
         }
 
-        #id, #password {
+        #rollNum, #password {
             width: 95%;
         }
 
@@ -66,7 +70,7 @@
         <h2>Student Login</h2>
 
         <form action="/login/student" method="post">
-            <label for="rollNum">User ID:</label>
+            <label for="rollNum"> User ID: </label>
             <input type="text" id="rollNum" name="rollNum" required>
 
             <label for="password">Password:</label>
