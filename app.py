@@ -2,7 +2,7 @@ import os
 from cs50 import SQL
 from flask import Flask, flash, redirect, render_template, request, session, jsonify
 from flask_session import Session
-from helper import login_required, otp_mail, password_mail, resend_mail
+from helper import login_required, otp_mail, password_mail, resend_mail, reformat_date
 from werkzeug.security import check_password_hash, generate_password_hash
 import secrets
 
@@ -213,7 +213,7 @@ def student():
     for row in rows:
         if(row["arrival"] != None):
             row["arrivaltime"] = row["arrival"].split(" ")[1]
-            row["arrivaldate"] = row["arrival"].split(" ")[0]
+            row["arrivaldate"] = reformat_date(row["arrival"].split(" ")[0])
     
     return render_template("student-dashboard.html", name=name, packages=rows) # Give rows of couriers and anything else too?
 

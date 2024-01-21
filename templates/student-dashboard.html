@@ -16,7 +16,7 @@
             max-width: 800px;
             margin: 20px auto;
             padding: 20px;
-            background-color: #fff;
+            background-color: #f7f7f7;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 5px;
             text-align: center;
@@ -63,11 +63,11 @@
         }
 
         .card {
-            background-color: #f9f9f9;
+            background-color: #fafafa;
             border: 1px solid #ddd;
             border-radius: 5px;
             margin-bottom: 20px;
-            padding: 15px;
+            padding-bottom: 3%;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
@@ -126,7 +126,7 @@
         </div>
 
         <h2>Student Dashboard</h2>
-        <div class="welcome">Welcome {{ name }}</div>
+        <div class="welcome">Welcome John Doe</div>
 
         <div class="dashboard-links">
             <a href="/student/history">View Package History</a>
@@ -134,16 +134,26 @@
 
         <h2 class="unclaimed-packages">Unclaimed Packages</h2>
 
-        {% for package in packages %}
-            <div class="card">
-                <h3>Package ID: {{ package.id }}</h3>
-                <p>Security Guard: {{ package.name }}</p>
-                <p>Source: {{ package.source }}</p>
-                <p>Arrival Time: {{ package.arrivaltime }}</p>
-                <p>Arrival Date: {{ package.arrivaldate }}</p>
-                <a href="/resend/{{ package.id }}" class="resend-link">Resend OTP</a>
-            </div>
-        {% endfor %}
+        <div class="card">
+            <h3>Package ID: 001</h3>
+            <p>Security Guard: John Doe</p>
+            <p>Source: Amazon</p>
+            <p>Arrival Time: 10:30 AM</p>
+            <p>Arrival Date: January 25, 2024</p>
+            <!-- Add id of package in link... -->
+            <a href="/resend" class="resend-link">Resend OTP</a>
+        </div>
+
+        <div class="card">
+            <h3>Package ID: 002</h3>
+            <p>Security Guard: Jane Smith</p>
+            <p>Source: eBay</p>
+            <p>Arrival Time: 2:45 PM</p>
+            <p>Arrival Date: January 26, 2024</p>
+            <a href="/resend" class="resend-link">Resend OTP</a>
+        </div>
+
+        <!-- Add more cards as needed -->
 
     </div>
 
