@@ -92,12 +92,14 @@ def recd_mail(id, toMail):
     my_server.quit()
 
 def reformat_date(date):
-        
+    if date == "-":
+        return "-"
     date_items = date.split("-")
     return date_items[2] + "/" + date_items[1] + "/" + date_items[0]
 
 def reformat_time(time):
-     
+    if time == "-":
+        return "-"
     time_items = time.split(":")
     return time_items[0] + ":" + time_items[1]
 
