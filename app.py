@@ -215,6 +215,7 @@ def student():
             row["arrivaltime"] = row["arrival"].split(" ")[1]
             row["arrivaldate"] = reformat_date(row["arrival"].split(" ")[0])
     
+    
     return render_template("student-dashboard.html", name=name, packages=rows) # Give rows of couriers and anything else too?
 
 @app.route("/resend/<id>")
@@ -327,9 +328,9 @@ def history():
     for row in rows:
         if(row["arrival"] != None):
             row["arrivaltime"] = row["arrival"].split(" ")[1]
-            row["arrivaldate"] = row["arrival"].split(" ")[0]
+            row["arrivaldate"] = reformat_date(row["arrival"].split(" ")[0])
         if(row["collection"] != None):
             row["collectiontime"] = row["collection"].split(" ")[1]
-            row["collectiondate"] = row["collection"].split(" ")[0]
+            row["collectiondate"] = reformat_date(row["collection"].split(" ")[0])
 
     return render_template("history.html", name=name, packages=rows)
