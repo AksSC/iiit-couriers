@@ -15,9 +15,15 @@
         .container {
             max-width: 800px;
             margin: 20px auto;
-            padding: 20px;
+            padding: 3% 5%;
+
+            border: 1px solid #beb9c0;
+            border-radius: 10px  ;
+            background-color: #f7f7f7;
+
             background-color: #f7f7f7;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            
             border-radius: 5px;
             text-align: center;
         }
@@ -134,24 +140,15 @@
 
         <h2 class="unclaimed-packages">Unclaimed Packages</h2>
 
-        <div class="card">
-            <h3>Package ID: 001</h3>
-            <p>Security Guard: John Doe</p>
-            <p>Source: Amazon</p>
-            <p>Arrival Time: 10:30 AM</p>
-            <p>Arrival Date: January 25, 2024</p>
-            <!-- Add id of package in link... -->
-            <a href="/resend" class="resend-link">Resend OTP</a>
-        </div>
-
-        <div class="card">
-            <h3>Package ID: 002</h3>
-            <p>Security Guard: Jane Smith</p>
-            <p>Source: eBay</p>
-            <p>Arrival Time: 2:45 PM</p>
-            <p>Arrival Date: January 26, 2024</p>
-            <a href="/resend" class="resend-link">Resend OTP</a>
-        </div>
+        {% for package in packages %}
+            <div class="card">
+                <h3>Package ID: {{ package.id }}</h3>
+                <p>Security Guard: {{ package.name }}</p>
+                <p>Source: {{ package.source }}</p>
+                <p>Arrival Time: {{ package.arrivaltime }}</p>
+                <p>Arrival Date: {{ package.arrivaldate }}</p>
+            </div>
+        {% endfor %}
 
         <!-- Add more cards as needed -->
 

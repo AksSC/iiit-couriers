@@ -28,18 +28,8 @@
             margin-bottom: 20px;
         }
 
-        .welcome {
-            color: #666;
-            font-size: 18px;
-            margin-bottom: 20px;
-        }
-
-        .dashboard-links {
-            margin-bottom: 30px;
-            text-align: center;
-        }
-
-        .dashboard-links a {
+        .dashboard-link,
+        .logout-link {
             display: inline-block;
             padding: 15px 25px;
             background-color: #3498db;
@@ -47,12 +37,13 @@
             text-decoration: none;
             border-radius: 5px;
             font-size: 18px;
-            margin: auto;
+            margin-right: 20px;
             margin-bottom: 20px;
             transition: background-color 0.3s ease;
         }
 
-        .dashboard-links a:hover {
+        .dashboard-link:hover,
+        .logout-link:hover {
             background-color: #2980b9;
         }
 
@@ -80,7 +71,6 @@
         .logout {
             text-align: right;
             margin-top: 20px;
-            margin-right: 10px;
         }
 
         .logout a {
@@ -103,15 +93,10 @@
 
     <div class="container">
         <div class="logout">
-            <a href="/logout" class="logout-link">Logout</a>
+            <a href="logout.html" class="logout-link">Logout</a>
         </div>
 
-        <h2>Student Package History</h2>
-        <div class="welcome">Welcome {{ name }}</div>
-
-        <div class="dashboard-links">
-            <a href="/student">Student Dashboard</a>
-        </div>
+        <h2>Student History</h2>
 
         {% for package in packages %}
             <div class="card">
@@ -124,6 +109,10 @@
                 <p>Collection Date: {{ package.collectiondate }}</p>
             </div>
         {% endfor %}
+
+        <!-- Add more cards as needed -->
+
+        <a href="student-dashboard.html" class="dashboard-link">Go to Student Dashboard</a>
     </div>
 
 </body>
