@@ -107,33 +107,23 @@
         </div>
 
         <h2>Student Package History</h2>
-        <div class="welcome">Welcome John Doe</div>
+        <div class="welcome">Welcome {{ name }}</div>
 
         <div class="dashboard-links">
             <a href="/student">Student Dashboard</a>
         </div>
 
-        <div class="card">
-            <h3>Package ID: 001</h3>
-            <p>Security Guard: John Doe</p>
-            <p>Source: Amazon</p>
-            <p>Arrival Time: 10:30 AM</p>
-            <p>Arrival Date: January 25, 2024</p>
-            <p>Collection Time: 4:15 PM</p>
-            <p>Collection Date: January 26, 2024</p>
-        </div>
-
-        <div class="card">
-            <h3>Package ID: 002</h3>
-            <p>Security Guard: Jane Smith</p>
-            <p>Source: eBay</p>
-            <p>Arrival Time: 2:45 PM</p>
-            <p>Arrival Date: January 27, 2024</p>
-            <p>Collection Time: 9:30 AM</p>
-            <p>Collection Date: January 28, 2024</p>
-        </div>
-
-        <!-- Add more cards as needed -->
+        {% for package in packages %}
+            <div class="card">
+                <h3>Package ID: {{ package.id }}</h3>
+                <p>Security Guard: {{ package.name }}</p>
+                <p>Source: {{ package.source }}</p>
+                <p>Arrival Time: {{ package.arrivaltime }}</p>
+                <p>Arrival Date: {{ package.arrivaldate }}</p>
+                <p>Collection Time: {{ package.collectiontime }}</p>
+                <p>Collection Date: {{ package.collectiondate }}</p>
+            </div>
+        {% endfor %}
     </div>
 
 </body>

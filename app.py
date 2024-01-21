@@ -207,9 +207,15 @@ def logout():
 @app.route("/student")
 @login_required
 def student():
-    rows = db.execute("SELECT * FROM couriers JOIN security ON couriers.security_id=security.id WHERE student_id = ? AND collected = ? ORDER BY arrival DESC", session["user_id"], 0)
-
-    return render_template("student-dashboard.html", packages=rows) # Give rows of couriers and anything else too?
+    rows = db.execute("SELECT couriers.id AS id, security.name AS name, arrival, source FROM couriers JOIN security ON couriers.security_id=security.id WHERE student_id = ? AND collected = ? ORDER BY arrival DESC", session["user_id"], 0)
+    name = db.execute("SELECT name FROM students WHERE roll_number = ?", session["user_id"])[0]["name"]
+    
+    for row in rows:
+        if(row["arrival"] != None):
+            row["arrivaltime"] = row["arrival"].split(" ")[1]
+            row["arrivaldate"] = row["arrival"].split(" ")[0]
+    
+    return render_template("student-dashboard.html", name=name, packages=rows) # Give rows of couriers and anything else too?
 
 @app.route("/resend/<id>")
 @login_required
@@ -276,7 +282,7 @@ def add():
         toMail = students[0]["email"]
         otp_mail(id, otp, toMail)
 
-        db.execute("INSERT INTO couriers (id, student_id, security_id, source, collected, hash, arrival, collection) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", id, rollNum, session["user_id"], src, 0, hash, arrival, "-")
+        db.execute("INSERT INTO couriers (id, student_id, security_id, source, collected, hash, arrival, collection) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", id, rollNum, session["user_id"], src, 0, hash, arrival, "- -")
         flash(f"Courier added successfully! Package ID is {id}")
         return redirect("/security")
     else:
@@ -314,6 +320,15 @@ def collect():
 @app.route("/student/history")
 @login_required
 def history():
-    packages = db.execute("SELECT * FROM couriers JOIN security ON couriers.security_id=security.id WHERE student_id = ? ORDER BY arrival DESC", session["user_id"])
-    # Does the above select work? Who knows.
-    return render_template("history.html") # Give package data and other shit?.
+    rows = db.execute("SELECT couriers.id AS id, security.name AS name, arrival, collection, source FROM couriers JOIN security ON couriers.security_id=security.id WHERE student_id = ? ORDER BY arrival DESC", session["user_id"])
+    name = db.execute("SELECT name FROM students WHERE roll_number = ?", session["user_id"])[0]["name"]
+    
+    for row in rows:
+        if(row["arrival"] != None):
+            row["arrivaltime"] = row["arrival"].split(" ")[1]
+            row["arrivaldate"] = row["arrival"].split(" ")[0]
+        if(row["collection"] != None):
+            row["collectiontime"] = row["collection"].split(" ")[1]
+            row["collectiondate"] = row["collection"].split(" ")[0]
+
+    return render_template("history.html", name=name, packages=rows)
